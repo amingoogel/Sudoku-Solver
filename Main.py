@@ -16,8 +16,10 @@ def generate_population(pop_size, puzzle):
     return population
 
 
-
-## new changes
-
-#test Lotfi
-#hi
+def fitness(individual):
+    score = 0
+    for i in range(9):
+        row = individual[i]
+        col = [individual[j][i] for j in range(9)]
+        score += len(set(row)) + len(set(col))
+    return score
