@@ -23,3 +23,8 @@ def fitness(individual):
         col = [individual[j][i] for j in range(9)]
         score += len(set(row)) + len(set(col))
     return score
+
+def select(population, fitnesses):
+    total_fitness = sum(fitnesses)
+    probabilities = [f / total_fitness for f in fitnesses]
+    return population[np.random.choice(range(len(population)), p=probabilities)]
