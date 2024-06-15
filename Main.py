@@ -18,3 +18,5 @@ def generate_population(pop_size, puzzle):
 
 
 ## new changes
+
+#test Lotfi
