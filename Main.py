@@ -28,9 +28,17 @@ def select(population, fitnesses):
     total_fitness = sum(fitnesses)
     probabilities = [f / total_fitness for f in fitnesses]
     return population[np.random.choice(range(len(population)), p=probabilities)]
-    
+
 
 def crossover(parent1, parent2):
     crossover_point = random.randint(0, 8)
     child = np.vstack((parent1[:crossover_point], parent2[crossover_point:]))
     return child
+
+
+def mutate(individual, mutation_rate):
+    for i in range(9):
+        if random.random() < mutation_rate:
+            swap_indices = random.sample(range(9), 2)
+            individual[i][swap_indices[0]], individual[i][swap_indices[1]] = individual[i][swap_indices[1]], individual[i][swap_indices[0]]
+    return individual
