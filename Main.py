@@ -58,3 +58,15 @@ def genetic_algorithm(puzzle, pop_size=100, mutation_rate=0.1, generations=1000)
             new_population.extend([mutate(child1, mutation_rate), mutate(child2, mutation_rate)])
         population = new_population
     return population[fitnesses.index(max(fitnesses))]
+
+    # CSP Solver Functions
+def is_valid(board, row, col, num):
+    for i in range(9):
+        if board[row][i] == num or board[i][col] == num:
+            return False
+    box_x, box_y = row // 3 * 3, col // 3 * 3
+    for i in range(3):
+        for j in range(3):
+            if board[box_x + i][box_y + j] == num:
+                return False
+    return True
