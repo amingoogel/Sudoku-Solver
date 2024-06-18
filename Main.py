@@ -28,3 +28,9 @@ def select(population, fitnesses):
     total_fitness = sum(fitnesses)
     probabilities = [f / total_fitness for f in fitnesses]
     return population[np.random.choice(range(len(population)), p=probabilities)]
+    
+
+def crossover(parent1, parent2):
+    crossover_point = random.randint(0, 8)
+    child = np.vstack((parent1[:crossover_point], parent2[crossover_point:]))
+    return child
