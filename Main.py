@@ -77,3 +77,15 @@ def find_unassigned_location(board):
             if board[i][j] == 0:
                 return (i, j)
     return None
+
+def mrv(board):
+    min_remaining = 10
+    chosen = None
+    for i in range(9):
+        for j in range(9):
+            if board[i][j] == 0:
+                remaining_values = [num for num in range(1, 10) if is_valid(board, i, j, num)]
+                if len(remaining_values) < min_remaining:
+                    min_remaining = len(remaining_values)
+                    chosen = (i, j)
+    return chosen
