@@ -89,3 +89,16 @@ def mrv(board):
                     min_remaining = len(remaining_values)
                     chosen = (i, j)
     return chosen
+
+def sudoku_solver(board):
+    unassigned = mrv(board)
+    if not unassigned:
+        return True
+    row, col = unassigned
+    for num in range(1, 10):
+        if is_valid(board, row, col, num):
+            board[row][col] = num
+            if sudoku_solver(board):
+                return True
+            board[row][col] = 0
+    return False
