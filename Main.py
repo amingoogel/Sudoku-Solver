@@ -70,3 +70,10 @@ def is_valid(board, row, col, num):
             if board[box_x + i][box_y + j] == num:
                 return False
     return True
+
+def find_unassigned_location(board):
+    for i in range(9):
+        for j in range(9):
+            if board[i][j] == 0:
+                return (i, j)
+    return None
