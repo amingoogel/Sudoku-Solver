@@ -42,3 +42,19 @@ def mutate(individual, mutation_rate):
             swap_indices = random.sample(range(9), 2)
             individual[i][swap_indices[0]], individual[i][swap_indices[1]] = individual[i][swap_indices[1]], individual[i][swap_indices[0]]
     return individual
+
+def genetic_algorithm(puzzle, pop_size=100, mutation_rate=0.1, generations=1000):
+    population = generate_population(pop_size, puzzle)
+    for generation in range(generations):
+        fitnesses = [fitness(individual) for individual in population]
+        if max(fitnesses) == 162:
+            return population[fitnesses.index(max(fitnesses))]
+        new_population = []
+        for _ in range(pop_size // 2):
+            parent1 = select(population, fitnesses)
+            parent2 = select(population, fitnesses)
+            child1 = crossover(parent1, parent2)
+            child2 = crossover(parent2, parent1)
+            new_population.extend([mutate(child1, mutation_rate), mutate(child2, mutation_rate)])
+        population = new_population
+    return population[fitnesses.index(max(fitnesses))]
