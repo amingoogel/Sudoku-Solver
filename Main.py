@@ -102,3 +102,47 @@ def sudoku_solver(board):
                 return True
             board[row][col] = 0
     return False
+
+
+
+# GUI with tkinter
+class SudokuGUI:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Sudoku Solver")
+        self.entries = [[tk.Entry(root, width=2, font=('Arial', 18), justify='center') for _ in range(9)] for _ in range(9)]
+        for i in range(9):
+            for j in range(9):
+                self.entries[i][j].grid(row=i, column=j, padx=5, pady=5)
+        self.solve_button = tk.Button(root, text="Solve", command=self.solve)
+        self.solve_button.grid(row=9, column=4, pady=10)
+    
+    def get_board(self):
+        board = []
+        for i in range(9):
+            row = []
+            for j in range(9):
+                val = self.entries[i][j].get()
+                row.append(int(val) if val else 0)
+            board.append(row)
+        return board
+    
+    def set_board(self, board):
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] != 0:
+                    self.entries[i][j].delete(0, tk.END)
+                    self.entries[i][j].insert(0, board[i][j])
+    
+    def solve(self):
+        board = self.get_board()
+        if sudoku_solver(board):
+            self.set_board(board)
+            messagebox.showinfo("Sudoku Solver", "Sudoku Solved!")
+        else:
+            messagebox.showerror("Sudoku Solver", "No solution exists")
+
+root = tk.Tk()
+gui = SudokuGUI(root)
+root.mainloop()
+nt
